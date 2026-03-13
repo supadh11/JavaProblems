@@ -31,19 +31,15 @@ public class MergeIntervalArrays {
         Arrays.sort(intervals, (a,b) ->a[0] - b[0]);
         List<int[]>resultList = new ArrayList<>();
 
-        for( int i=0;i<intervals.length-1;i++){
+        for( int i=0;i<intervals.length;i++){
             if(resultList.isEmpty() || resultList.get(resultList.size()-1)[1] < intervals[i][0]){
                 resultList.add(intervals[i]);
             }else{
-                resultList.get(resultList.size()-1)[1] = Math.max(resultList.get(resultList.size() - 1)[0],intervals[i][1]);
+                resultList.get(resultList.size()-1)[1] = Math.max(resultList.get(resultList.size() - 1)[1],intervals[i][1]);
             }
 
             }
-        for( int i=0;i<resultList.size();i++){
 
-               System.out.print("{"+resultList.get(i)[0]+","+resultList.get(i)[1]+"}");
-            System.out.println("");
-        }
        return resultList.toArray(new int[resultList.size()][]);
     }
 }
