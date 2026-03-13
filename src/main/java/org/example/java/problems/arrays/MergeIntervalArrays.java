@@ -39,11 +39,7 @@ public class MergeIntervalArrays {
             }
 
             }
-        for( int i=0;i<resultList.size();i++){
 
-               System.out.print("{"+resultList.get(i)[0]+","+resultList.get(i)[1]+"}");
-            System.out.println("");
-        }
        return resultList.toArray(new int[resultList.size()][]);
     }
 }
