@@ -17,6 +17,13 @@ Explanation:
 There is no string in strs that can be rearranged to form "bat".
 The strings "nat" and "tan" are anagrams as they can be rearranged to form each other.
 The strings "ate", "eat", and "tea" are anagrams as they can be rearranged to form each other.
+
+Solution
+1) Make a Map of String , List<String>
+2) for each word in the input list, sort the char using Array.sort(charArray)
+3) Convert to string and check if the string exists as the key in the map
+4) If exists add to the list, if not create a new list and add the word
+5) Convert the map to list by iterating over the keySet
  */
 public class GroupAnagrams {
 
