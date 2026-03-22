@@ -1,4 +1,4 @@
-package org.example.java.problems.arrays;
+package org.example.java.problems.backtrack;
 
 import java.util.ArrayList;
 import java.util.Arrays;
