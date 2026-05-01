@@ -1,0 +1,66 @@
+Trees :
+Core concept
+
+In inorder traversal, you always follow this order:
+
+Left → Root → Right
+
+
+
+     4
+     / \
+    2   5
+   / \
+  1   3
+
+  Go left → 2
+Go left → 1 → visit 1
+Back to 2 → visit 2
+Go right → 3 → visit 3
+Back to 4 → visit 4
+Go right → 5 → visit 5
+
+Core difference (1-line each)
+Inorder (L → Root → R) → process node in between children
+Preorder (Root → L → R) → process node before children
+Postorder (L → R → Root) → process node after children
+When to use each
+1. Inorder → Sorted / ordered processing
+
+Use when:
+
+You want elements in sorted order (in a BST)
+You need infix expression (like normal math: a + b)
+
+👉 Think: “Give me data in order”
+
+2. Preorder → Copy / build / serialize tree
+
+Use when:
+
+You want to clone or serialize a tree
+You need to process parent before children
+Used in prefix expressions (+ a b)
+
+👉 Think: “Start from root, then expand”
+
+3. Postorder → Delete / bottom-up computation
+
+Use when:
+
+You need to delete/free a tree
+You need results from children before parent
+Used in evaluating expression trees
+
+👉 Think: “Finish children first, then parent”
+
+Quick comparison table
+Traversal	Order	Use case	Key idea
+Inorder	L → Root → R	BST sorted output	Middle processing
+Preorder	Root → L → R	Tree copy / serialization	Top-down
+Postorder	L → R → Root	Deletion / bottom-up problems	Bottom-up
+Easy memory trick
+Pre → root comes before
+In → root comes in between
+Post → root comes after
+
