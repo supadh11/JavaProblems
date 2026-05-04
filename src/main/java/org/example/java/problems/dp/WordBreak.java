@@ -1,9 +1,6 @@
 package org.example.java.problems.dp;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /*
 
@@ -24,6 +21,14 @@ Note that you are allowed to reuse a dictionary word.
 Example 3:
 Input: s = "catsandog", wordDict = ["cats","dog","sand","and","cat"]
 Output: false
+
+This is not just matching words — it's:
+
+“Can I break the string at some index such that:
+left part is valid AND right part is valid?”
+
+This screams:
+👉 Dynamic Programming
  */
 public class WordBreak {
 
@@ -33,24 +38,32 @@ public class WordBreak {
     }
 
     public static boolean wordBreak(String s, List<String> wordDict) {
-    boolean val = false;
-    Set<String> wordSet = new HashSet<>();
+        boolean val = false;
+        Map<String, Boolean> memo = new HashMap<>();
+        Set<String> wordSet = new HashSet<>();
         for(String word : wordDict){
             wordSet.add(word);
         }
-      val =  findWords(0,s,wordSet);
-    return val;
+        val =  findWords(memo,s,wordSet);
+        return val;
 
     }
 
-    public static boolean findWords(int p, String s, Set<String> wordSet){
+    public static boolean findWords(Map<String, Boolean> memo, String s, Set<String> wordSet){
+
         int n=s.length();
-        if(p==n) {
-            return true;
+        if(memo.containsKey(s)){
+            return memo.get(s);
         }
-        for(int i=p+1 ;i<=n;i++){
-            if(wordSet.contains(s.substring(p,i)) && findWords(i,s,wordSet)) return true;
+        if(wordSet.contains(s)) return true;
+        for(int i=1 ;i<n;i++){
+            String prefix = s.substring(0, i);
+            if(wordSet.contains(prefix) && findWords(memo,s.substring(i),wordSet)) {
+                memo.put(s, true);
+                return true;
+            }
         }
+        memo.put(s, false);
         return false;
     }
 
