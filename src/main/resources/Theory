@@ -55,9 +55,9 @@ Used in evaluating expression trees
 👉 Think: “Finish children first, then parent”
 
 Quick comparison table
-Traversal	Order	Use case	Key idea
-Inorder	L → Root → R	BST sorted output	Middle processing
-Preorder	Root → L → R	Tree copy / serialization	Top-down
+Traversal	Order	        Use case	                 Key idea
+Inorder	    L → Root → R	BST sorted output           	Middle processing
+Preorder	Root → L → R	Tree copy / serialization	    Top-down
 Postorder	L → R → Root	Deletion / bottom-up problems	Bottom-up
 Easy memory trick
 Pre → root comes before
@@ -102,3 +102,72 @@ While reassigning always ensure :
 
 low = mid + 1;
 high = mid - 1;
+
+For a Binary Search Tree (BST) or any Binary Tree, the three fundamental Depth First Search (DFS) traversals are:
+
+Preorder → Root → Left → Right
+Inorder → Left → Root → Right
+Postorder → Left → Right → Root
+
+1.  Preorder :
+void preorder(TreeNode node){
+    if(node == null) return;
+
+    visit(node);          // process current node
+    preorder(node.left);
+    preorder(node.right);
+}
+
+When to Use Preorder
+1. Copying / Cloning a Tree : You process root first, so structure can be recreated.
+2. Serialize Tree : Saving tree structure to file/network.
+3. Expression Trees (Prefix Notation)  : + a * b c
+4. Building Trees  : Useful when reconstructing BSTs from traversal arrays.
+
+2. Inorder Traversal
+
+void inorder(TreeNode node){
+    if(node == null) return;
+
+    inorder(node.left);
+    visit(node);
+    inorder(node.right);
+}
+
+When to Use Inorder
+1. Get Sorted Data from BST :
+2. Validate BST
+3. kth Smallest / Largest Element
+4. Range Queries
+5. Convert BST → Sorted Array / LinkedList
+
+
+3. Postorder Traversal
+
+void postorder(TreeNode node){
+    if(node == null) return;
+
+    postorder(node.left);
+    postorder(node.right);
+    visit(node);
+}
+
+        10
+       /  \
+      5    15
+     / \     \
+    2   7     20       2 7 5 20 15 10
+
+When to Use Postorder:
+1. Delete/Free Tree : Children must be deleted before parent.
+2. Expression Tree Evaluation : Operands evaluated before operator.
+3. Bottom-Up Processing : When child results are needed before parent.
+4. Calculate Heights / Sizes : Dynamic programming on trees.
+5. Dependency Resolution :  Children/dependencies processed first.
+
+| Traversal | Process Node     |
+| --------- | ---------------- |
+| Preorder  | Before children  |
+| Inorder   | Between children |
+| Postorder | After children   |
+
