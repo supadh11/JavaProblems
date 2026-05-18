@@ -171,3 +171,34 @@ When to Use Postorder:
 | Inorder   | Between children |
 | Postorder | After children   |
 
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Reverse Linked List :
+
+Initialize:
+prev = null
+curr = head
+
+While curr != null:
+    save next node
+    reverse pointer
+    move prev forward
+    move curr forward
+
+    public ListNode reverseList(ListNode head) {
+        ListNode prev = null;
+        ListNode curr = head;
+
+        while(curr != null) {
+            ListNode next = curr.next;
+
+            curr.next = prev;
+
+            prev = curr;
+            curr = next;
+        }
+
+        return prev;
+    }
