@@ -1,0 +1,167 @@
+
+Bit manipulation :
+
+Bit positions :
+Binary:  1 1 0 1
+Position 3 2 1 0
+1101 = 1*8 + 1*4 + 0*2 + 1*1 = 13
+
+AND Operation : 1 & 1 = 1
+                Else 0
+1101
+1011
+----
+1001
+
+OR Operator :
+0 | 0 = 0
+Else 1
+
+XOR Operator (^) :
+Same bits => 0
+Different bits => 1
+1101
+1011
+----
+0110
+5 ^ 5 = 0
+XOR is reversible
+a ^ b ^ b = a
+
+NOT Operator (~) Flips all bits. ~1010 => 0101 ~5 = -6
+
+
+Left Shift (<<)  n << k Left Shift (<<)  5 << 1 = 10
+                                         5 << 2 = 20
+
+Right Shift (>>) n >> k 20 >> 2 = 5 Divide by 2
+
+Common Bit Tricks
+
+Trick 1 — Odd or Even
+if((n & 1) == 0) Even => ends with 0
+                 Odd  => ends with 1
+Trick 2 — Swap Without Temp
+a = a ^ b;
+b = a ^ b;
+a = a ^ b;
+
+Ist Pass  : a = a^b
+IInd Pass : b = (a^b)^b = a
+IIIrd Pass: a = (a^b)^a = b
+
+Trick 3 — Remove Lowest Set Bit
+n & (n - 1)
+12 = 1100
+11 = 1011
+
+1100
+1011
+----
+1000
+
+Trick 4 — Check Power of 2
+(n & (n - 1)) == 0  // Power of 2 has only one set bit.
+8 = 1000
+7 = 0111
+
+1000 & 0111 = 0
+
+Two's Complement Theory
+Computers store signed integers using:Two's Complement
+
+To get negative number:
+Flip bits
+Add 1
+
+5 = 00000101
+
+Flip:
+11111010
+
+Add 1:
+11111011 = -5
+
+Single Number : Every number appears twice except one.[2,2,1] Ans 1
+int ans = 0;
+
+for(int n : nums){
+    ans ^= n;
+}
+
+Pattern 2 — Missing Number : Array 0 to N , I number is missing
+int xor = 0;
+
+for(int i=0;i<=n;i++)
+    xor ^= i;
+
+for(int num : nums)
+    xor ^= num;
+
+Pattern 3 — Single Number II
+
+
+Q1. Reverse Bits.Reverse all bits of integer.
+
+public int reverseBits(int n) {
+    int result = 0;
+
+    for(int i=0;i<32;i++){
+        result <<= 1;
+
+        result |= (n & 1);
+
+        n >>= 1;
+    }
+
+    return result;
+}
+
+Power of Two
+public boolean isPowerOfTwo(int n) {
+    return n > 0 && (n & (n - 1)) == 0;
+}
+
+Missing Number:
+public int missingNumber(int[] nums) {
+    int xor = nums.length;
+
+    for(int i=0;i<nums.length;i++){
+        xor ^= i;
+        xor ^= nums[i];
+    }
+
+    return xor;
+}
+
+Sum of Two Integers Without +
+public int getSum(int a, int b) {
+    while(b != 0){
+        int carry = (a & b) << 1;
+        a = a ^ b;
+        b = carry;
+    }
+    return a;
+}
+
+| Operation                    | Formula                            | Explanation                                                                                            |
+| ---------------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| Check kth bit                | (n & (1<<k)) != 0                  | 1<<k creates a mask where only kth bit is 1. AND operation checks whether kth bit in n is set.   |
+| Set kth bit                  | n | (1<<k)                       | OR with a mask sets kth bit to 1 without affecting other bits.                                       |
+| Clear kth bit                | n & ~(1<<k)                      | 1<<k creates mask, ~ flips it so kth bit becomes 0 and others 1. AND clears only kth bit.      |
+| Toggle kth bit               | n ^ (1<<k)                       | XOR flips the kth bit. If it was 0 it becomes 1, if 1 it becomes 0.                            |
+| Remove lowest set bit        | n & (n-1)                        | Subtracting 1 flips all bits after lowest set bit. AND removes the rightmost 1.                      |
+| Check if power of 2          | (n & (n-1)) == 0                 | Powers of 2 contain only one set bit. Removing lowest set bit makes number 0.                        |
+| Extract lowest set bit       | n & -n                           | Keeps only the rightmost set bit because -n in two’s complement preserves lowest set bit during AND. |
+| Multiply by 2^k              | n << k                           | Left shift moves bits left by k positions, equivalent to multiplying by 2^k.                       |
+| Divide by 2^k                | n >> k                           | Right shift moves bits right by k positions, equivalent to integer division by 2^k.                |
+| Check odd/even               | (n & 1)                          | Last bit determines parity. 1 means odd, 0 means even.                                             |
+| Count set bits               | while(n){ n &= (n-1); count++; } | Each iteration removes one set bit, so loop runs only for number of 1s.                              |
+| Turn off lowest set bit      | n & (n-1)                        | Same trick as removing rightmost set bit.                                                              |
+| Turn on lowest unset bit     | n \| (n+1)                       | Adding 1 changes first 0 from right into 1; OR keeps it set.                                       |
+| Check opposite signs         | (a ^ b) < 0                      | Sign bit differs for opposite signs, XOR makes sign bit 1.                                           |
+| Swap without temp            | a^=b; b^=a; a^=b;                | XOR reversibility swaps values without extra memory.                                                   |
+| Get binary kth bit value     | (n >> k) & 1                     | Shift kth bit to last position, then isolate using & 1.                                              |
+| Create mask of k bits        | (1<<k)-1                         | Example: k=4 → 1111. Useful for extracting lower bits.                                             |
+| Clear all bits from LSB to k | n & (~((1<<(k+1))-1))            | Creates mask with lower bits 0, higher bits 1.                                                     |
+| Keep only lowest k bits      | n & ((1<<k)-1)                   | Mask keeps lower k bits and removes remaining higher bits.                                             |
